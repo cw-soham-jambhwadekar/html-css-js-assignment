@@ -1,3 +1,7 @@
+// imports of reusable functions
+import { validateEmailField, validateReqField } from "./utils.js";
+
+// grouping of fields that share same validation logic
 const fields = {
     firstName: document.getElementById("firstName"),
     lastName: document.getElementById("lastName"),
@@ -5,59 +9,24 @@ const fields = {
     message: document.getElementById("message")
 }
 
+// fields that have unique validation logic
 const form = document.getElementById("contactForm");
 const successToast = document.getElementById("successToast");
 const checkbox = document.querySelector(".checkbox");
 const radioField = document.querySelector(".radio-field")
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// attachment of event listners on elements of fields for dynamic validation
+Object.keys(fields).forEach(ele => {
+    fields[ele].addEventListener("blur", () => {
+        if(ele === "email"){
+            validateEmailField(fields[ele]);
+        }else{
+            validateReqField(fields[ele]);
+        }
+    })
+})
 
-function markInvalid(element) {
-    element.classList.add("invalid");
-    element.setAttribute("aria-invalid", "true");
-}
-
-function clearInvalid(element) {
-    element.classList.remove("invalid");
-    element.removeAttribute("aria-invalid");
-}
-
-function validateReqField(element) {
-    if (element.value.trim() === "") {
-        markInvalid(element);
-        return false;
-    }
-
-    clearInvalid(element);
-    return true;
-}
-
-function validateEmailField(element) {
-    if (!emailPattern.test(element.value.trim())) {
-        markInvalid(element);
-        return false;
-    } 
-
-    clearInvalid(element);
-    return true;
-}
-
-fields.firstName.addEventListener("blur", () => {
-    validateReqField(fields.firstName);
-});
-
-fields.lastName.addEventListener("blur", () => {
-   validateReqField(fields.lastName);
-});
-
-fields.email.addEventListener("blur", () => {
-    validateEmailField(fields.email)
-});
-
-fields.message.addEventListener("blur", () => {
-   validateReqField(fields.message);
-});
-
+// form validation after submit
 form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -87,10 +56,12 @@ form.addEventListener("submit", function (e) {
 
     form.reset();
 
+    // removal of invalid tag
     document.querySelectorAll(".invalid").forEach(el => {
         el.classList.remove("invalid");
     });
 
+    // logic of success toast message
     successToast.classList.add("show");
     successToast.classList.remove("hidden");
 
