@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="successToast" class="success hidden">
+        <div class="success-msg">
+            <img src="./assets/icon-success-check.svg" alt="Success">
+            <h3>Message Sent</h3>
+        </div>
+        <p>Your form was sent successfully.</p>
+    </div>
+
+
+    <div class="container">
+        <h2>Contact Us</h2>
+
+        <form id="contactForm">
+            <!-- Name -->
+            <div class="row">
+                <div class="field">
+                    <label for="firstName">First Name <span>&nbsp;*</span> </label>
+                    <input type="text" name="firstName" id="firstName" required 
+                    aria-required="true" aria-describedby="firstNameError">
+                    <span id="firstNameError" class="error" aria-live="polite">This field is required</span>
+                </div>
+                <div class="field">
+                    <label for="lastName">Last Name <span>&nbsp;*</span> </label>
+                    <input type="text" name="lastName" id="lastName" required
+                    aria-required="true" aria-describedby="lastNameError">
+                    <span class="error" id="lastNameError">This field is required</span>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="field">
+                <label for="email">Email <span>&nbsp;*</span> </label>
+                <input type="text" name="email" id="email" required
+                aria-required="true" aria-describedby="emailError">
+                <span class="error" id="emailError" aria-live="polite">Please enter a valid email address</span>
+            </div>
+
+            <!-- Query Type -->
+            <div class="field radio-field"
+            role="radiogroup" aria-labelledby="queryTypeLabel" aria-describedby="queryTypeError">
+
+                <label id="queryTypeLabel">Query Type <span>&nbsp;*</span> </label>
+                <div class="radio-group">
+                    <label class="query-type">
+                        <input type="radio" name="queryType" value="General Inquiry">
+                        General Inquiry
+                    </label>
+                    <label class="query-type">
+                        <input type="radio" name="queryType" value="Support Request">
+                        Support Request
+                    </label>
+                </div>
+                <span id="queryTypeError" class="error">Please select a query type</span>
+            </div>
+
+            <!-- Message -->
+            <div class="field">
+                <label for="message">Message <span>&nbsp;*</span> </label>
+                <textarea name="message" id="message" rows="5" required
+                aria-required="true" aria-describedby="messageError"></textarea>
+                <span class="error" id="messageError" aria-live="polite">This field is required</span>
+            </div>
+
+            <!-- Consent -->
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="consent">
+                    I consent to being contacted by the team<span>&nbsp;*</span>
+                </label>
+
+                <span class="error">To submit this form ,please consent to being contacted</span>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
