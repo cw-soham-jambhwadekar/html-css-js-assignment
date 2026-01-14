@@ -1,4 +1,5 @@
 export const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const textPattern = /^[a-zA-Z]$/;
 
 // addition of invalid css class to the invalid input
 export function markInvalid(element) {
@@ -13,8 +14,15 @@ export function clearInvalid(element) {
 }
 
 export function validateReqField(element) {
+    const errorEle = element.nextElementSibling;
     if (element.value.trim() === "") {
         markInvalid(element);
+        return false;
+    } else if(element.name !== "message" && !textPattern.test(element.value.trim())) {
+        markInvalid(element);
+        if(errorEle && errorEle.classList.contains("error")){
+            errorEle.textContent = `Not a valid ${element.name}`
+        }
         return false;
     }
 
